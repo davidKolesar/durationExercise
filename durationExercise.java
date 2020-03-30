@@ -28,25 +28,25 @@ public class TimeFormatter {
 
       switch (seconds) {
         case 1:
-          System.out.println("Monday");
+          System.out.println("Seconds");
           break;
         case 2:
-          System.out.println("Tuesday");
+          System.out.println("Minutes");
           break;
         case 3:
-          System.out.println("Wednesday");
+          System.out.println("Hours");
           break;
         case 4:
-          System.out.println("Thursday");
+          System.out.println("Days");
           break;
         case 5:
-          System.out.println("Friday");
+          System.out.println("Weeks");
           break;
         case 6:
-          System.out.println("Saturday");
+          System.out.println("Months");
           break;
         case 7:
-          System.out.println("Sunday");
+          System.out.println("Years");
           break;
       }
       
