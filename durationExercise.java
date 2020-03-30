@@ -1,7 +1,8 @@
 public class TimeFormatter {
-    PUBLIC STATIC FINAL INT HOUR = 3600;
-    PUBLIC STATIC FINAL INT DAY = 86400;
-
+private static final int HOUR = 3600;
+private static final int DAY = 86400;
+private static final int WEEK = 604800;
+private static final int MONTH = 2628288;
 
     public static String formatDuration(int seconds) {
        //edge case 
