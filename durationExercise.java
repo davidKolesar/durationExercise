@@ -27,56 +27,28 @@ public class TimeFormatter {
     public static String evaluateArgumentUnit(int seconds)
     {
      
-     //Adding all units
+     //Hashmaps don't maintain order smart guy
      Map<Integer, String> unitsOfTime = new HashMap<>();
      unitsOfTime.put(MINUTE, "Minute");
      unitsOfTime.put(HOUR, "Hour");
      unitsOfTime.put(DAY, "Day");
      unitsOfTime.put(WEEK, "Week");
      unitsOfTime.put(MONTH, "Month");
-     
+
+     //default unit
+     String appropriateUnit = "Seconds";
+
     for(int unit : unitsOfTime.keySet()) 
     {
+      
       if(seconds >= unit)
       {
         System.out.println(seconds + " seconds is greater than one " + unitsOfTime.get(unit));
-        //this is x unit
+        appropriateUnit = unitsOfTime.get(unit);
       }
-    
     
     }
-
-
-
-      if(seconds >= MINUTE)
-      {
-        return "Minutes";
-      }
-      
-      switch (seconds) {
-        case 1:
-          System.out.println("Seconds");
-          break;
-        case 2:
-          System.out.println("Minutes");
-          break;
-        case 3:
-          System.out.println("Hours");
-          break;
-        case 4:
-          System.out.println("Days");
-          break;
-        case 5:
-          System.out.println("Weeks");
-          break;
-        case 6:
-          System.out.println("Months");
-          break;
-        case 7:
-          System.out.println("Years");
-          break;
-      }
-      
+     return appropriateUnit; 
     
     }
     
