@@ -1,5 +1,4 @@
-import java.util.List; // import just the List interface
-import java.util.ArrayList; // import just the ArrayList class
+import java.util.*; // This is bad practicer but just do this for now until you get your tools
 
 public class TimeFormatter {
   
@@ -28,18 +27,20 @@ public class TimeFormatter {
     public static String evaluateArgumentUnit(int seconds)
     {
      
-     //Does this need to be a hashmap?
-     List<Integer> unitsOfTime = new ArrayList<>();
-     unitsOfTime.add(MINUTE);
-     unitsOfTime.add(HOUR);
-     unitsOfTime.add(DAY);
-     unitsOfTime.add(WEEK);
-     unitsOfTime.add(MONTH);
+     //Adding all units
+     Map<Integer, String> unitsOfTime = new HashMap<>();
+     unitsOfTime.put(MINUTE, "Minute");
+     unitsOfTime.put(HOUR, "Hour");
+     unitsOfTime.put(DAY, "Day");
+     unitsOfTime.put(WEEK, "Week");
+     unitsOfTime.put(MONTH, "Month");
      
-    for(int unit : unitsOfTime) 
+    for(int unit : unitsOfTime.keySet()) 
     {
-      if(seconds >= unit){
-      
+      if(seconds >= unit)
+      {
+        System.out.println(seconds + " seconds is greater than one " + unitsOfTime.get(unit));
+        //this is x unit
       }
     
     
