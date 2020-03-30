@@ -2,12 +2,12 @@ import java.util.List; // import just the List interface
 import java.util.ArrayList; // import just the ArrayList class
 
 public class TimeFormatter {
-
-  private static final int MINUTE = 60;
-  private static final int HOUR = 3600;
-  private static final int DAY = 86400;
-  private static final int WEEK = 604800;
-  private static final int MONTH = 2628288;
+  
+    private static final int MINUTE = 60;
+    private static final int HOUR = 3600;
+    private static final int DAY = 86400;
+    private static final int WEEK = 604800;
+    private static final int MONTH = 2628288;
   
     public static String formatDuration(int seconds) {
        //edge case 
@@ -28,14 +28,25 @@ public class TimeFormatter {
     public static String evaluateArgumentUnit(int seconds)
     {
      
-     List<Integer> x = new ArrayList<>();
+     //Does this need to be a hashmap?
+     List<Integer> unitsOfTime = new ArrayList<>();
+     unitsOfTime.add(MINUTE);
+     unitsOfTime.add(HOUR);
+     unitsOfTime.add(DAY);
+     unitsOfTime.add(WEEK);
+     unitsOfTime.add(MONTH);
      
-      for(int i = 0; i < 0; i++) {
-      
-      
+    for(int unit : unitsOfTime) 
+    {
+      if(seconds >= unit){
       
       }
-      
+    
+    
+    }
+
+
+
       if(seconds >= MINUTE)
       {
         return "Minutes";
