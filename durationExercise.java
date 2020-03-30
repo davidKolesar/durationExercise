@@ -1,3 +1,6 @@
+import java.util.List; // import just the List interface
+import java.util.ArrayList; // import just the ArrayList class
+
 public class TimeFormatter {
 
   private static final int MINUTE = 60;
@@ -24,8 +27,20 @@ public class TimeFormatter {
     
     public static String evaluateArgumentUnit(int seconds)
     {
+     
+     List<Integer> x = new ArrayList<>();
+     
+      for(int i = 0; i < 0; i++) {
       
-
+      
+      
+      }
+      
+      if(seconds >= MINUTE)
+      {
+        return "Minutes";
+      }
+      
       switch (seconds) {
         case 1:
           System.out.println("Seconds");
