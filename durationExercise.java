@@ -28,23 +28,24 @@ public class TimeFormatter {
     {
      
      //Hashmaps don't maintain order smart guy
-     Map<Integer, String> unitsOfTime = new HashMap<>();
-     unitsOfTime.put(MINUTE, "Minute");
-     unitsOfTime.put(HOUR, "Hour");
-     unitsOfTime.put(DAY, "Day");
-     unitsOfTime.put(WEEK, "Week");
-     unitsOfTime.put(MONTH, "Month");
+     Map<String,Integer> unitsOfTime = new HashMap<>();
+     unitsOfTime.put("Minute", MINUTE );
+     unitsOfTime.put("Hour", HOUR);
+     unitsOfTime.put("Day", DAY);
+     unitsOfTime.put("Week", WEEK);
+     unitsOfTime.put("Month", MONTH);
 
      //default unit
      String appropriateUnit = "Seconds";
 
-    for(int unit : unitsOfTime.keySet()) 
+    for(String unit : unitsOfTime.keySet()) 
     {
       
-      if(seconds >= unit)
+      if(seconds >=  unitsOfTime.get(unit))
       {
-        System.out.println(seconds + " seconds is greater than one " + unitsOfTime.get(unit));
-        appropriateUnit = unitsOfTime.get(unit);
+        System.out.println(seconds + " seconds is greater than one " + unit);
+        if(unitsOfTime.get(appropriateUnit) < unitsOfTime.get(unit))
+        appropriateUnit = unit;
       }
     
     }
