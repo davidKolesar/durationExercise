@@ -26,7 +26,9 @@ public class TimeFormatter {
     
     public static String evaluateArgumentUnit(int seconds)
     {
-     
+     // can we use modulus here? I don't think you can because it won't always == 0
+		
+		
      //Hashmaps don't maintain order smart guy
      Map<String,Integer> unitsOfTime = new HashMap<>();
      unitsOfTime.put("Minute", MINUTE );
