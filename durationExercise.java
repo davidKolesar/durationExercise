@@ -24,10 +24,17 @@ public class TimeFormatter {
        
        //this should probably be an enum
        String argumentUnit = evaluateArgumentUnit(seconds);
+		
+		//set seconds to subtract
+		int unitToSubtract = unitsOfTime.get(appropriateUnit) 
+		int totalUnits = 0;
   
+		while(seconds <= unitsToSubtract){
+			seconds = seconds - unitsToSubtract;
+			totalUnits+;			
+		}
 		
-		
-       //switch statement
+       //handle remainder
        
        return "test";
     }
