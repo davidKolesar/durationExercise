@@ -7,15 +7,18 @@ public class TimeFormatter {
     private static final int DAY = 86400;
     private static final int WEEK = 604800;
     private static final int MONTH = 2628288;
-	
-	private static final Map<String,Integer> unitsOfTime = new HashMap<>();
-    private static final unitsOfTime.put("Minute", MINUTE );
-    private static final unitsOfTime.put("Hour", HOUR);
-    private static final unitsOfTime.put("Day", DAY);
-    private static final unitsOfTime.put("Week", WEEK);
-    private static final unitsOfTime.put("Month", MONTH);
+    private static Map<String,Integer> unitsOfTime = new HashMap<>();
+    
   
     public static String formatDuration(int seconds) {
+    
+    //variables
+  	unitsOfTime.put("Minute", MINUTE );
+    unitsOfTime.put("Hour", HOUR);
+    unitsOfTime.put("Day", DAY);
+    unitsOfTime.put("Week", WEEK);
+    unitsOfTime.put("Month", MONTH);
+       
        //edge case 
        if(seconds == 0)
        {
@@ -26,12 +29,12 @@ public class TimeFormatter {
        String argumentUnit = evaluateArgumentUnit(seconds);
 		
 		//set seconds to subtract
-		int unitToSubtract = unitsOfTime.get(appropriateUnit) 
+		int unitToSubtract = unitsOfTime.get(argumentUnit); 
 		int totalUnits = 0;
   
-		while(seconds <= unitsToSubtract){
-			seconds = seconds - unitsToSubtract;
-			totalUnits+;			
+		while(seconds <= unitToSubtract){
+			seconds = seconds - unitToSubtract;
+			totalUnits++;			
 		}
 		
        //handle remainder
