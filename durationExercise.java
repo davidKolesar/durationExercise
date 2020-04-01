@@ -12,8 +12,9 @@ public class TimeFormatter {
   
     public static String formatDuration(int seconds) {
     
-    //variables
-  	unitsOfTime.put("Minute", MINUTE );
+    //filling hashmap
+    unitsOfTime.put("Second", SECOND );
+    unitsOfTime.put("Minute", MINUTE );
     unitsOfTime.put("Hour", HOUR);
     unitsOfTime.put("Day", DAY);
     unitsOfTime.put("Week", WEEK);
@@ -25,13 +26,16 @@ public class TimeFormatter {
          return "now";
        }
        
-       //this should probably be an enum
        String argumentUnit = evaluateArgumentUnit(seconds);
 		
 		//set seconds to subtract
-		int unitToSubtract = unitsOfTime.get(argumentUnit); 
-		int totalUnits = 0;
-  
+	 int unitToSubtract = 0;
+   int totalUnits = 0;
+   if(argumentUnit != "Second")
+    {
+     int unitToSubtract = unitsOfTime.get(argumentUnit); 
+    }
+    
 		while(seconds <= unitToSubtract){
 			seconds = seconds - unitToSubtract;
 			totalUnits++;			
@@ -46,7 +50,7 @@ public class TimeFormatter {
     public static String evaluateArgumentUnit(int seconds)
     {
      //default unit
-     String appropriateUnit = "Seconds";
+     String appropriateUnit = "Second";
      
     //handle < 1 minute
     if(seconds < 60){
