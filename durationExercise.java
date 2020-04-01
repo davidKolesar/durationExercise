@@ -45,14 +45,14 @@ public class TimeFormatter {
     
     public static String evaluateArgumentUnit(int seconds)
     {
-     // can we use modulus here? I don't think you can because it won't always == 0
-		
-		
-     //Hashmaps don't maintain order smart guy
-
-
      //default unit
      String appropriateUnit = "Seconds";
+     
+    //handle < 1 minute
+    if(seconds < 60){
+      return appropriateUnit;
+    }
+
 
     for(String unit : unitsOfTime.keySet()) 
     {   
