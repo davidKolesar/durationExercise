@@ -13,7 +13,6 @@ public class TimeFormatter {
     public static String formatDuration(int seconds) {
     
     //filling hashmap
-    unitsOfTime.put("second", SECOND );
     unitsOfTime.put("minute", MINUTE );
     unitsOfTime.put("hour", HOUR);
     unitsOfTime.put("day", DAY);
@@ -35,26 +34,21 @@ public class TimeFormatter {
   
     if(argumentUnit != "second")
     {
+      unitToSubtract = unitsOfTime.get(argumentUnit);      
       while(seconds <= unitToSubtract)
       {
     		seconds = seconds - unitToSubtract;
     		totalUnits++;			
     	}
+      String returnValue = concatenateReturnValue(totalUnits, argumentUnit);
     } 
     else 
     {
-      return concatenateReturnValue(int amount, String unit);
+      return concatenateReturnValue(totalUnits, argumentUnit);
     }
       
-       int unitToSubtract = unitsOfTime.get(argumentUnit);       
-    		
-  		}
-    
-  
-  }
-  	
-       
-       return "test";
+    return "test"; 
+
     }
     
     
@@ -82,11 +76,11 @@ public class TimeFormatter {
      return appropriateUnit; 
     }
     
-    public static String concatenateReturnValue(int amount, String unit) {
-      if(unit == 1) {
-        return "1 " + unit;
+    public static String concatenateReturnValue(int totalUnits, String unitToSubtract) {
+      if(totalUnits == 1) {
+        return "1 " + unitToSubtract;
       } else {
-        return amount + " " + units;
+        return totalUnits + " " + unitToSubtract;
       }
     
     }
