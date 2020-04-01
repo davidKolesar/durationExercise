@@ -44,6 +44,7 @@ public class TimeFormatter {
     } 
     else 
     {
+      totalUnits = seconds;
       return concatenateReturnValue(totalUnits, argumentUnit);
     }
       
