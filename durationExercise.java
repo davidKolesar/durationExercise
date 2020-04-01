@@ -13,44 +13,55 @@ public class TimeFormatter {
     public static String formatDuration(int seconds) {
     
     //filling hashmap
-    unitsOfTime.put("Second", SECOND );
-    unitsOfTime.put("Minute", MINUTE );
-    unitsOfTime.put("Hour", HOUR);
-    unitsOfTime.put("Day", DAY);
-    unitsOfTime.put("Week", WEEK);
-    unitsOfTime.put("Month", MONTH);
+    unitsOfTime.put("second", SECOND );
+    unitsOfTime.put("minute", MINUTE );
+    unitsOfTime.put("hour", HOUR);
+    unitsOfTime.put("day", DAY);
+    unitsOfTime.put("week", WEEK);
+    unitsOfTime.put("month", MONTH);
        
-       //edge case 
-       if(seconds == 0)
-       {
-         return "now";
-       }
+    //edge case 
+    if(seconds == 0)
+    {
+      return "now";
+    }
        
-       String argumentUnit = evaluateArgumentUnit(seconds);
-		
 		//set seconds to subtract
 	 int unitToSubtract = 0;
    int totalUnits = 0;
-   if(argumentUnit != "Second")
+   
+   //determine appropriate unit
+   String argumentUnit = determineRemainingUnit(seconds);
+  
+    if(argumentUnit != "second")
     {
-     int unitToSubtract = unitsOfTime.get(argumentUnit); 
+      while(seconds <= unitToSubtract)
+      {
+    		seconds = seconds - unitToSubtract;
+    		totalUnits++;			
+    	}
+    } 
+    else 
+    {
+      return concatenateReturnValue(int amount, String unit);
     }
+      
+       int unitToSubtract = unitsOfTime.get(argumentUnit);       
+    		
+  		}
     
-		while(seconds <= unitToSubtract){
-			seconds = seconds - unitToSubtract;
-			totalUnits++;			
-		}
-		
-       //handle remainder
+  
+  }
+  	
        
        return "test";
     }
     
     
-    public static String evaluateArgumentUnit(int seconds)
+    public static String determineRemainingUnit(int seconds)
     {
      //default unit
-     String appropriateUnit = "Second";
+     String appropriateUnit = "second";
      
     //handle < 1 minute
     if(seconds < 60){
@@ -71,6 +82,14 @@ public class TimeFormatter {
      return appropriateUnit; 
     }
     
+    public static String concatenateReturnValue(int amount, String unit) {
+      if(unit == 1) {
+        return "1 " + unit;
+      } else {
+        return amount + " " + units;
+      }
+    
+    }
     
     
 }
