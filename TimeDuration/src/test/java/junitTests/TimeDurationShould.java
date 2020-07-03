@@ -30,6 +30,7 @@ public class TimeDurationShould {
         assertEquals("1 minute", Main.formatDuration(60));
 	}
 
+
 	@Test
 	public void handleOneMinutePlusSeconds() {
         assertEquals("1 minute and 2 seconds", Main.formatDuration(62));

@@ -13,8 +13,13 @@ public class Main {
 	private static Map<String, Integer> unitsOfTime = new HashMap<>();
 
 	public static String formatDuration(int seconds) {
+		// handle edge case (now)
+		if (seconds == 0) {
+			return "now";
+		}
 
-		// filling hashmap
+		int unitToSubtract = 0;
+		int totalUnits = 0;
 		unitsOfTime.put("second", SECOND);
 		unitsOfTime.put("minute", MINUTE);
 		unitsOfTime.put("hour", HOUR);
@@ -22,30 +27,20 @@ public class Main {
 		unitsOfTime.put("week", WEEK);
 		unitsOfTime.put("month", MONTH);
 
-		// edge case
-		if (seconds == 0) {
-			return "now";
-		}
-
-		// set seconds to subtract
-		int unitToSubtract = 0;
-		int totalUnits = 0;
-
-		// determine appropriate unit
 		String argumentUnit = determineRemainingUnit(seconds);
 
-		if (argumentUnit != "second") {
-			unitToSubtract = unitsOfTime.get(argumentUnit);
-			while (seconds != 0 && seconds <= unitToSubtract) {
-				seconds = seconds - unitToSubtract;
-				totalUnits++;
+		// subtract exact values
+		unitToSubtract = unitsOfTime.get(argumentUnit);
+		while (seconds >= unitToSubtract) {
+			seconds = seconds - unitToSubtract;
+			totalUnits++;
+			if (seconds == 0) {
+				return concatenateReturnValue(totalUnits, argumentUnit);
 			}
-			return concatenateReturnValue(totalUnits, argumentUnit);
+		} // handle remainders
 
-		} else {
-			totalUnits = seconds;
-			return concatenateReturnValue(totalUnits, argumentUnit);
-		}
+		return argumentUnit;
+
 	}
 
 	public static String determineRemainingUnit(int seconds) {
@@ -72,7 +67,7 @@ public class Main {
 		if (totalUnits == 1) {
 			return "1 " + unitToSubtract;
 		} else {
-			return totalUnits + " " + unitToSubtract;
+			return totalUnits + " " + unitToSubtract + "s";
 		}
 
 	}
