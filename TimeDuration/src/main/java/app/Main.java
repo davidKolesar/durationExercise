@@ -18,6 +18,11 @@ public class Main {
 			return "now";
 		}
 
+		// handle edge case (1 second)
+		if (seconds == 1) {
+			return "1 second";
+		}
+
 		int unitToSubtract = 0;
 		int totalUnits = 0;
 		unitsOfTime.put("second", SECOND);
@@ -34,13 +39,8 @@ public class Main {
 		while (seconds >= unitToSubtract) {
 			seconds = seconds - unitToSubtract;
 			totalUnits++;
-			if (seconds == 0) {
-				return concatenateReturnValue(totalUnits, argumentUnit);
-			}
-		} // handle remainders
-
-		return argumentUnit;
-
+		}
+		return concatenateReturnValue(totalUnits, argumentUnit, 0);
 	}
 
 	public static String determineRemainingUnit(int seconds) {
@@ -63,13 +63,17 @@ public class Main {
 		return appropriateUnit;
 	}
 
-	public static String concatenateReturnValue(int totalUnits, String unitToSubtract) {
-		if (totalUnits == 1) {
+	public static String concatenateReturnValue(int totalUnits, String unitToSubtract, int secondsRemaining) {
+
+		if (totalUnits == 1 && secondsRemaining == 0) {
 			return "1 " + unitToSubtract;
-		} else {
-			return totalUnits + " " + unitToSubtract + "s";
 		}
 
-	}
+		if (totalUnits == 1 && secondsRemaining > 0) {
 
+			return totalUnits + " " + unitToSubtract + "s and " + secondsRemaining + " seconds";
+		}
+
+		return secondsRemaining + " seconds";
+	}
 }
