@@ -23,8 +23,6 @@ public class Main {
 			return "1 second";
 		}
 
-		int unitToSubtract = 0;
-		int totalUnits = 0;
 		unitsOfTime.put("second", SECOND);
 		unitsOfTime.put("minute", MINUTE);
 		unitsOfTime.put("hour", HOUR);
@@ -33,9 +31,14 @@ public class Main {
 		unitsOfTime.put("month", MONTH);
 
 		String argumentUnit = determineRemainingUnit(seconds);
+		return reduceToLowestAmount(seconds, argumentUnit);
+	}
 
-		// subtract exact values
-		unitToSubtract = unitsOfTime.get(argumentUnit);
+	// subtract exact values
+
+	public static String reduceToLowestAmount(int seconds, String argumentUnit) {
+		int totalUnits = 0;
+		Integer unitToSubtract = unitsOfTime.get(argumentUnit);
 		while (seconds >= unitToSubtract) {
 			seconds = seconds - unitToSubtract;
 			totalUnits++;
@@ -79,13 +82,11 @@ public class Main {
 			return totalUnits + " " + unitToSubtract + "s";
 		}
 
-		
 		if (totalUnits > 1 && secondsRemaining > 0) {
 
 			return totalUnits + " " + unitToSubtract + "s and " + secondsRemaining + " seconds";
 		}
 
-		
 		return secondsRemaining + " seconds";
 	}
 }
