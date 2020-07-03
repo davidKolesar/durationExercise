@@ -9,11 +9,13 @@ public class Main {
 	private static final int DAY = 86400;
 	private static final int WEEK = 604800;
 	private static final int MONTH = 2628288;
+	private static final Integer SECOND = 59;
 	private static Map<String, Integer> unitsOfTime = new HashMap<>();
 
 	public static String formatDuration(int seconds) {
 
 		// filling hashmap
+		unitsOfTime.put("second", SECOND);
 		unitsOfTime.put("minute", MINUTE);
 		unitsOfTime.put("hour", HOUR);
 		unitsOfTime.put("day", DAY);
@@ -34,18 +36,16 @@ public class Main {
 
 		if (argumentUnit != "second") {
 			unitToSubtract = unitsOfTime.get(argumentUnit);
-			while (seconds <= unitToSubtract) {
+			while (seconds != 0 && seconds <= unitToSubtract) {
 				seconds = seconds - unitToSubtract;
 				totalUnits++;
 			}
-			String returnValue = concatenateReturnValue(totalUnits, argumentUnit);
+			return concatenateReturnValue(totalUnits, argumentUnit);
+
 		} else {
 			totalUnits = seconds;
 			return concatenateReturnValue(totalUnits, argumentUnit);
 		}
-
-		return "test";
-
 	}
 
 	public static String determineRemainingUnit(int seconds) {
@@ -63,9 +63,7 @@ public class Main {
 				if (unitsOfTime.get(appropriateUnit) < unitsOfTime.get(unit)) {
 					appropriateUnit = unit;
 				}
-
 			}
-			return appropriateUnit;
 		}
 		return appropriateUnit;
 	}
