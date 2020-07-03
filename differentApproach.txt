@@ -1,0 +1,102 @@
+package app;
+
+public class Main {
+	private static final int MINUTE = 60;
+	private static final int HOUR = 3600;
+	private static final int DAY = 86400;
+	private static final int WEEK = 604800;
+	private static final int MONTH = 2628288;
+	private static final Integer SECOND = 59;
+
+	private static int totalMonths = 0;
+	private static int totalWeeks = 0;
+	private static int totalDays = 0;
+	private static int totalHours = 0;
+	private static int totalMinutes = 0;
+
+	public static String formatDuration(int seconds) {
+		// handle edge case (now)
+		if (seconds == 0) {
+			return "now";
+		}
+
+		// handle edge case (1 second)
+		if (seconds == 1) {
+			return "1 second";
+		}
+
+		if (seconds > MONTH) {
+			totalMonths = seconds / MONTH;
+			seconds = seconds - (totalMonths * MONTH);
+		}
+
+		if (seconds > WEEK) {
+			totalWeeks = seconds / WEEK;
+			seconds = seconds - (totalWeeks * WEEK);
+		}
+
+		if (seconds > DAY) {
+			totalDays = seconds / DAY;
+			seconds = seconds - (totalDays * DAY);
+
+		}
+
+		if (seconds > HOUR) {
+			totalHours = seconds / HOUR;
+			seconds = seconds - (totalHours * HOUR);
+		}
+
+		if (seconds > MINUTE) {
+			totalMinutes = seconds / MINUTE;
+			seconds = seconds - (totalMinutes * MINUTE);
+		}
+
+		return concatenateReturnValue();
+	}
+
+	public static String concatenateReturnValue() {
+		String returnValue = "";
+
+		if (totalMonths != 0) {
+			if (totalMonths == 1) {
+				returnValue = totalMonths + "months";
+			} else {
+				returnValue = totalMonths + "1 month";
+			}
+		}
+
+		if (totalWeeks != 0) {
+			if (totalWeeks == 1) {
+				returnValue = totalWeeks + "weeks";
+			} else {
+				returnValue = totalWeeks + "1 week";
+			}
+		}
+
+		if (totalDays != 0) {
+			if (totalDays == 1) {
+				returnValue = totalDays + "days";
+			} else {
+				returnValue = totalDays + "1 day";
+			}
+		}
+
+		if (totalHours != 0) {
+			if (totalHours == 1) {
+				returnValue = totalHours + "hours";
+			} else {
+				returnValue = totalHours + "1 hour";
+			}
+		}
+
+		if (totalMinutes != 0) {
+			if (totalMinutes == 1) {
+				returnValue = totalMinutes + "minutes";
+			} else {
+				returnValue = totalMinutes + "1 minute";
+			}
+		}
+
+		return returnValue;
+	}
+}
