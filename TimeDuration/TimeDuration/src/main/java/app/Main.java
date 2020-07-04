@@ -11,6 +11,8 @@ public class Main {
 	private static final int MONTH = 2628288;
 	private static final Integer SECOND = 59;
 	private static Map<String, Integer> unitsOfTime = new HashMap<>();
+	private static Map<String, Integer> resultsPairs = new HashMap<>();
+	private static int totalNumeratedUnits = 0;
 
 	public static String formatDuration(int seconds) {
 		// handle edge case (now)
@@ -31,19 +33,25 @@ public class Main {
 		unitsOfTime.put("month", MONTH);
 
 		String argumentUnit = determineRemainingUnit(seconds);
-		return reduceToLowestAmount(seconds, argumentUnit);
+
+		// break down into each smallest unit
+		while (seconds > 59) {
+			seconds = reduceToLowestAmount(seconds, argumentUnit);
+		}
+		// format return statement
+		return concatenateReturnValue();
+
 	}
 
-	// subtract exact values
-
-	public static String reduceToLowestAmount(int seconds, String argumentUnit) {
+	public static int reduceToLowestAmount(int seconds, String argumentUnit) {
 		int totalUnits = 0;
 		Integer unitToSubtract = unitsOfTime.get(argumentUnit);
 		while (seconds >= unitToSubtract) {
 			seconds = seconds - unitToSubtract;
 			totalUnits++;
 		}
-		return concatenateReturnValue(totalUnits, argumentUnit, 0);
+		resultsPairs.put(argumentUnit, totalUnits);
+		return seconds;
 	}
 
 	public static String determineRemainingUnit(int seconds) {
@@ -66,27 +74,65 @@ public class Main {
 		return appropriateUnit;
 	}
 
-	public static String concatenateReturnValue(int totalUnits, String unitToSubtract, int secondsRemaining) {
+	public static String concatenateReturnValue() {
+		boolean isThreeUnits = false;
+		boolean isPreviousUnit = false;
+		String returnValue = "";
 
-		if (totalUnits == 1 && secondsRemaining == 0) {
-			return "1 " + unitToSubtract;
+		for (String unit : resultsPairs.keySet()) {
+			if (1 >= resultsPairs.get(unit)) {
+				switch (unit) {
+				case "month":
+					if (resultsPairs.get(unit) > 1) {
+						returnValue = returnValue + resultsPairs.get(unit) + " months";
+					} else {
+						returnValue = returnValue + resultsPairs.get(unit) + " month";
+					}
+					isPreviousUnit = true;
+					totalNumeratedUnits++;
+					break;
+
+				case "week":
+					if (resultsPairs.get(unit) > 1) {
+						returnValue = returnValue + resultsPairs.get(unit) + " months";
+					} else {
+						returnValue = returnValue + resultsPairs.get(unit) + " month";
+					}
+					totalNumeratedUnits++;
+					break;
+
+				case "day":
+					isPreviousUnit = true;
+					if (resultsPairs.get(unit) > 1) {
+						returnValue = returnValue + resultsPairs.get(unit) + " days";
+					} else {
+						returnValue = returnValue + resultsPairs.get(unit) + " day";
+					}
+					totalNumeratedUnits++;
+					break;
+
+				case "hour":
+					isPreviousUnit = true;
+					if (resultsPairs.get(unit) > 1) {
+						returnValue = returnValue + resultsPairs.get(unit) + " hourss";
+					} else {
+						returnValue = returnValue + resultsPairs.get(unit) + " hour";
+					}
+					totalNumeratedUnits++;
+					break;
+
+				case "minute":
+					isPreviousUnit = true;
+					if (resultsPairs.get(unit) > 1) {
+						returnValue = returnValue + resultsPairs.get(unit) + " minutes";
+					} else {
+						returnValue = returnValue + resultsPairs.get(unit) + " minute";
+					}
+					totalNumeratedUnits++;
+					break;
+				}
+			}
 		}
-
-		if (totalUnits == 1 && secondsRemaining > 0) {
-
-			return totalUnits + " " + unitToSubtract + " and " + secondsRemaining + " seconds";
-		}
-
-		if (totalUnits > 1 && secondsRemaining == 0) {
-
-			return totalUnits + " " + unitToSubtract + "s";
-		}
-
-		if (totalUnits > 1 && secondsRemaining > 0) {
-
-			return totalUnits + " " + unitToSubtract + "s and " + secondsRemaining + " seconds";
-		}
-
-		return secondsRemaining + " seconds";
+		return returnValue;
 	}
 }
