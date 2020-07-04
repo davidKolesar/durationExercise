@@ -80,7 +80,7 @@ public class Main {
 		String returnValue = "";
 
 		for (String unit : resultsPairs.keySet()) {
-			if (1 >= resultsPairs.get(unit)) {
+			if (resultsPairs.get(unit) >= 1) {
 				switch (unit) {
 				case "month":
 					if (resultsPairs.get(unit) > 1) {
