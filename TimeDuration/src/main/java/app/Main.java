@@ -1,8 +1,7 @@
 package app;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class Main {
@@ -13,8 +12,15 @@ public class Main {
 	private static final int MONTH = 2628288;
 	private static final Integer SECOND = 59;
 	private static Map<String, Integer> unitsOfTime = new HashMap<>();
-	private static Map<String, Integer> resultsPairs = new HashMap<>();
+	private static Map<String, Integer> resultsPairs = new LinkedHashMap<String, Integer>();
 
+	/**
+	 * Method that takes seconds and breaks them into months, weeks, days, hours,
+	 * minutes, and seconds.
+	 * 
+	 * @param seconds [int] -- The number of seconds to convert.
+	 * @return [String] -- The value of seconds broken down into units.
+	 */
 	public static String formatDuration(int seconds) {
 		// handle edge case (now)
 		if (seconds == 0) {
@@ -33,7 +39,10 @@ public class Main {
 		unitsOfTime.put("week", WEEK);
 		unitsOfTime.put("month", MONTH);
 
-		// break down into each smallest unit
+		/**
+		 * While seconds is still greater than 1 minute (the smallest possible unit to
+		 * divide), find the greatest unit applicable and divide it
+		 */
 		while (seconds > 59) {
 			String argumentUnit = determineRemainingUnit(seconds);
 			seconds = reduceToLowestAmount(seconds, argumentUnit);
@@ -43,41 +52,15 @@ public class Main {
 		return formatReturnString(concatenatedValue);
 	}
 
-	private static String formatReturnString(String concatenatedValue) {
-		boolean isFormattingNeeded = false;
-
-		// count digits in string
-		int digitsInString = 0;
-		for (int i = 0, len = concatenatedValue.length(); i < len; i++) {
-			if (Character.isDigit(concatenatedValue.charAt(i))) {
-				digitsInString++;
-				if (digitsInString >= 3) {
-					isFormattingNeeded = true;
-				}
-			}
-		}
-
-		if (isFormattingNeeded) {
-
-			return concatenatedValue.replaceAll("(?<=[a-z]) ?(?<! and )(\\d+)", ", $1");
-		}
-
-		return concatenatedValue;
-
-	}
-
-	public static int reduceToLowestAmount(int seconds, String argumentUnit) {
-		int totalUnits = 0;
-		Integer unitToSubtract = unitsOfTime.get(argumentUnit);
-		while (seconds >= unitToSubtract) {
-			seconds = seconds - unitToSubtract;
-			totalUnits++;
-		}
-		resultsPairs.put(argumentUnit, totalUnits);
-		return seconds;
-	}
-
-	public static String determineRemainingUnit(int seconds) {
+	/**
+	 * Takes seconds (dividend) and divides them into the greatest possible unit of
+	 * time (divisor)
+	 * 
+	 * @param seconds [int] Seconds to divide (dividend)
+	 * @return [String] the greatest unit that amount of seconds breaks up into
+	 *         (divisor)
+	 */
+	private static String determineRemainingUnit(int seconds) {
 		// default unit
 		String appropriateUnit = "second";
 
@@ -97,7 +80,32 @@ public class Main {
 		return appropriateUnit;
 	}
 
-	public static String concatenateReturnValue(int seconds) {
+	/**
+	 * Takes seconds and the highest unit of time it will divide into and returns
+	 * the amount of units with remaining seconds.
+	 * 
+	 * @param seconds      [int] Seconds left to divide (dividend)
+	 * @param argumentUnit [String] unit of time as (divisor)
+	 * @return remained of seconds
+	 */
+	private static int reduceToLowestAmount(int seconds, String argumentUnit) {
+		int totalUnits = 0;
+		Integer unitToSubtract = unitsOfTime.get(argumentUnit);
+		while (seconds >= unitToSubtract) {
+			seconds = seconds - unitToSubtract;
+			totalUnits++;
+		}
+		resultsPairs.put(argumentUnit, totalUnits);
+		return seconds;
+	}
+
+	/**
+	 * Creates a string of values to units into an unformatted String
+	 * 
+	 * @param seconds [int] -- amount of seconds
+	 * @return concatenatedString [String] -- String containing values to units.
+	 */
+	private static String concatenateReturnValue(int seconds) {
 		boolean isPreviousUnit = false;
 		String returnValue = "";
 
@@ -170,4 +178,34 @@ public class Main {
 		resultsPairs.clear();
 		return returnValue;
 	}
+	
+	
+	/**
+	 * Takes a string of units and numbers to format them into a proper string.
+	 * 
+	 * @param concatenatedValue [String] Value of all units concatenated into an
+	 *                          unformatted string.
+	 * @return [String] final value to return.
+	 */
+	private static String formatReturnString(String concatenatedValue) {
+		boolean isFormattingNeeded = false;
+
+		// count digits in string
+		int digitsInString = 0;
+		for (int i = 0, len = concatenatedValue.length(); i < len; i++) {
+			if (Character.isDigit(concatenatedValue.charAt(i))) {
+				digitsInString++;
+				if (digitsInString >= 3) {
+					isFormattingNeeded = true;
+				}
+			}
+		}
+
+		if (isFormattingNeeded) {
+			return concatenatedValue.replaceAll("(?<=[a-z]) ?(?<! and )(\\d+)", ", $1");
+		}
+
+		return concatenatedValue;
+	}
+
 }

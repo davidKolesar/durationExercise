@@ -48,4 +48,10 @@ public class TimeDurationShould {
 		assertEquals("1 hour, 1 minute and 2 seconds", Main.formatDuration(3662));
 	}
 
+	@Test
+	public void handleOneDayPlusHourPlusMinutesPlusSeconds() {
+		assertEquals("1 day, 1 hour, 1 minute and 5 seconds", Main.formatDuration(90065));
+	}
+
+	
 }
