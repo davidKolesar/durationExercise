@@ -6,6 +6,11 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author David Kolesar
+ * 4JUL20 
+ *
+ */
 public class Main {
 	private static final int MINUTE = 60;
 	private static final int HOUR = 3600;
