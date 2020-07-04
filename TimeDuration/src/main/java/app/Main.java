@@ -1,7 +1,9 @@
 package app;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Main {
@@ -123,9 +125,9 @@ public class Main {
 
 				case "week":
 					if (resultsPairs.get(unit) > 1) {
-						returnValue = returnValue + resultsPairs.get(unit) + " months";
+						returnValue = returnValue + resultsPairs.get(unit) + " weeks";
 					} else {
-						returnValue = returnValue + resultsPairs.get(unit) + " month";
+						returnValue = returnValue + resultsPairs.get(unit) + " week";
 					}
 					break;
 
@@ -141,7 +143,7 @@ public class Main {
 				case "hour":
 					isPreviousUnit = true;
 					if (resultsPairs.get(unit) > 1) {
-						returnValue = returnValue + resultsPairs.get(unit) + " hourss";
+						returnValue = returnValue + resultsPairs.get(unit) + " hours";
 					} else {
 						returnValue = returnValue + resultsPairs.get(unit) + " hour";
 					}
@@ -189,18 +191,28 @@ public class Main {
 	 */
 	private static String formatReturnString(String concatenatedValue) {
 		boolean isFormattingNeeded = false;
-
+		List<Integer>indexList = new ArrayList<>();
+		
 		// count digits in string
 		int digitsInString = 0;
 		for (int i = 0, len = concatenatedValue.length(); i < len; i++) {
 			if (Character.isDigit(concatenatedValue.charAt(i))) {
 				digitsInString++;
+				indexList.add(i);
 				if (digitsInString >= 3) {
 					isFormattingNeeded = true;
 				}
 			}
 		}
-
+		//check for instance of 2 numbers but no seconds
+		if(digitsInString == 2) {
+			if(!concatenatedValue.contains("and")) {				
+				StringBuilder sb = new StringBuilder(concatenatedValue);
+				sb.insert(indexList.get(1)," and ");
+				concatenatedValue = sb.toString();
+			}
+		}
+		
 		if (isFormattingNeeded) {
 			return concatenatedValue.replaceAll("(?<=[a-z]) ?(?<! and )(\\d+)", ", $1");
 		}
