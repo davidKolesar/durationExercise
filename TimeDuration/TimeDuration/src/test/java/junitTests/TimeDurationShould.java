@@ -8,24 +8,24 @@ import app.Main;
 
 public class TimeDurationShould {
 
-	@Test
+//	@Test
 	public void exists() {
 		assert(true);
 	}
 	
-	@Test
+//	@Test
 	public void handleZero() {
         assertEquals("now", Main.formatDuration(0));
 	}
 	
 
-	@Test
+//	@Test
 	public void handleOne() {
         assertEquals("1 second", Main.formatDuration(1));
 	}
 	
 
-	@Test
+//	@Test
 	public void handleOneMinute() {
         assertEquals("1 minute", Main.formatDuration(60));
 	}
@@ -41,12 +41,12 @@ public class TimeDurationShould {
         assertEquals("2 minutes", Main.formatDuration(120));
 	}
 	
-	@Test
+//	@Test
 	public void handleOneJHour() {
         assertEquals("1 hour", Main.formatDuration(3600));
 	}
 	
-	@Test
+//	@Test
 	public void handleOneHourPlusMinutesPlusSeconds() {
         assertEquals("1 hour, 1 minute and 2 seconds", Main.formatDuration(3662));
 	}

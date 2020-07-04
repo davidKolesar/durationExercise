@@ -39,7 +39,7 @@ public class Main {
 			seconds = reduceToLowestAmount(seconds, argumentUnit);
 		}
 		// format return statement
-		return concatenateReturnValue();
+		return concatenateReturnValue(seconds);
 
 	}
 
@@ -74,7 +74,7 @@ public class Main {
 		return appropriateUnit;
 	}
 
-	public static String concatenateReturnValue() {
+	public static String concatenateReturnValue(int seconds) {
 		boolean isThreeUnits = false;
 		boolean isPreviousUnit = false;
 		String returnValue = "";
@@ -131,8 +131,30 @@ public class Main {
 					totalNumeratedUnits++;
 					break;
 				}
+				if (isPreviousUnit) {
+
+				} else {
+
+				}
+
+				if (seconds > 0) {
+					if (isPreviousUnit) {
+						if (seconds > 1) {
+							returnValue = returnValue + " and " + seconds + " seconds";
+						} else {
+							returnValue = returnValue + " and 1 second";
+						}
+					} else {
+						if (seconds > 1) {
+							returnValue = returnValue + seconds + " seconds";
+						} else {
+							returnValue = returnValue + " 1 second";
+						}
+					}
+				}
 			}
 		}
+		resultsPairs.clear();
 		return returnValue;
 	}
 }
