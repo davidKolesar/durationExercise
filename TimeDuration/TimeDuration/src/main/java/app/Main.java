@@ -32,10 +32,9 @@ public class Main {
 		unitsOfTime.put("week", WEEK);
 		unitsOfTime.put("month", MONTH);
 
-		String argumentUnit = determineRemainingUnit(seconds);
-
 		// break down into each smallest unit
 		while (seconds > 59) {
+			String argumentUnit = determineRemainingUnit(seconds);
 			seconds = reduceToLowestAmount(seconds, argumentUnit);
 		}
 		// format return statement
@@ -137,23 +136,25 @@ public class Main {
 
 				}
 
-				if (seconds > 0) {
-					if (isPreviousUnit) {
-						if (seconds > 1) {
-							returnValue = returnValue + " and " + seconds + " seconds";
-						} else {
-							returnValue = returnValue + " and 1 second";
-						}
-					} else {
-						if (seconds > 1) {
-							returnValue = returnValue + seconds + " seconds";
-						} else {
-							returnValue = returnValue + " 1 second";
-						}
-					}
+			}
+		}
+		// handle seconds outside of loop
+		if (seconds > 0) {
+			if (isPreviousUnit) {
+				if (seconds > 1) {
+					returnValue = returnValue + " and " + seconds + " seconds";
+				} else {
+					returnValue = returnValue + " and 1 second";
+				}
+			} else {
+				if (seconds > 1) {
+					returnValue = returnValue + seconds + " seconds";
+				} else {
+					returnValue = returnValue + " 1 second";
 				}
 			}
 		}
+
 		resultsPairs.clear();
 		return returnValue;
 	}
