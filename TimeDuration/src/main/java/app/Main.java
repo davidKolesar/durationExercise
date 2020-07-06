@@ -218,6 +218,19 @@ public class Main {
 			}
 		}
 		
+		/*
+		* REGEX Explanation:
+		*
+		* (?<=[a-z]) - Positive lookbehind for a single character in range a-z.
+		* ? - Match an optional space.
+		* (?<! and ) - Negative lookbehind for and.
+		* ( - Open 1st capture group.
+		* \d+ - Match at least a single digit (double escaped in Java).
+		* ) - Close 1st capture group.
+		* Replaced with:
+		* " , $1 "-Comma and space literals and whatever is captured in 1st capture group.
+		*
+		*/
 		if (isFormattingNeeded) {
 			return concatenatedValue.replaceAll("(?<=[a-z]) ?(?<! and )(\\d+)", ", $1");
 		}
