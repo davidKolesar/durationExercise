@@ -29,10 +29,30 @@ public class TimeDurationShould {
 	}
 
 	@Test
+	public void handleOneHour() {
+		assertEquals("1 hour", Main.formatDuration(3600));
+	}
+
+	@Test
+	public void handleDay() {
+		assertEquals("1 day", Main.formatDuration(86400));
+	}
+	
+	@Test
+	public void handleWeek() {
+		assertEquals("1 week", Main.formatDuration(604800));
+	}
+
+	@Test
+	public void handleMonth() {
+		assertEquals("1 month", Main.formatDuration(2628288));
+	}
+
+	@Test
 	public void handleOneMinutePlusSeconds() {
 		assertEquals("1 minute and 2 seconds", Main.formatDuration(62));
 	}
-
+	
 	@Test
 	public void handleMinutesPlusSeconds() {
 		assertEquals("2 minutes and 2 seconds", Main.formatDuration(122));
@@ -46,11 +66,6 @@ public class TimeDurationShould {
 	@Test
 	public void handleTwoMinutes() {
 		assertEquals("2 minutes", Main.formatDuration(120));
-	}
-
-	@Test
-	public void handleOneHour() {
-		assertEquals("1 hour", Main.formatDuration(3600));
 	}
 
 	@Test
@@ -84,11 +99,6 @@ public class TimeDurationShould {
 	}
 
 	@Test
-	public void handleMonth() {
-		assertEquals("1 month", Main.formatDuration(2628288));
-	}
-	
-	@Test
 	public void handleMonthPlusMinute() {
 		assertEquals("1 month and 1 minute", Main.formatDuration(2628348));
 	}
@@ -97,5 +107,5 @@ public class TimeDurationShould {
 	public void handleMonthPlusMinutePlusSecond() {
 		assertEquals("1 month, 1 minute and 1 second", Main.formatDuration(2628349));
 	}
-		
+			
 }
